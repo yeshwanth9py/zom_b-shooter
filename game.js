@@ -32,19 +32,20 @@ function makezomb(){
     currzomb.onclick = ()=>{
         destroy(currzomb)
     }
-    zombie_id++
 }
 
 // Iteration 7: Write the helper function to get random integer btw min and max
+
 function getrandomint(min, max){
-    //write logic to return a value btw min and max
-    return min + Math.ceil(Math.random()*(max-min))
+    //write logic to return a value btw min and max  
+    return min + Math.ceil(Math.random()*(max-min))   
 }
 
 
 // Iteration 4: Write a function to destroy a zombie when it is shot or missed
 function destroy(zombie){
     zombie.style.display = "none";
+    zombie_id++
     makezomb()
 }
 
@@ -54,7 +55,7 @@ function check_zombie(zombie){
     console.log(zombie.getBoundingClientRect());
     if(zombie.getBoundingClientRect().top <= 0){
         destroy(zombie);
-        makezomb();
+        // makezomb();
         lives--
         if(lives == 0){
             location.href = "game-over.html"
@@ -64,28 +65,43 @@ function check_zombie(zombie){
 
 // Iteration 5: Creating timer 
 
-// var ct = 60;
+var ct = 60;
 
-// setInterval(()=>{
-//     let timerbox = document.getElementById("timer"); 
-//     timerbox.innerText = ct;
-//     ct--
-//     console.log(timerbox,ct)
-// },100)
+setInterval(()=>{
+    let timerbox = document.getElementById("timer"); 
+    timerbox.innerText = ct;
+    ct--
+    // check_zombie()
+    let currzomb = document.querySelector(`#zombie${zombie_id}`);
+    check_zombie(currzomb)
+    if(ct == 0){
+        //go to win page
+        location.href = "win.html"
+    }
+},1000)
+
+
 
 // or
 
-document.addEventListener("DOMContentLoaded",()=>{
-    let timerbox = document.getElementById("timer"); 
-    var ct = 60;
-    setInterval(()=>{
-  
-        timerbox.innerText = ct;
-        ct--
-        console.log(timerbox,ct)
-    },100)
-  }) 
+// var ct = 60;
+// let timerbox = document.getElementById("timer");
+// document.addEventListener("DOMContentLoaded",()=>{  
+//     setInterval(()=>{ 
+//         timerbox.innerText = ct;
+//         ct--
+//         console.log(timerbox,ct)
+//     },1000)
+//   }) 
 
+// setInterval(()=>{
+//     document.addEventListener("DOMContentLoaded",()=>{
+//         timerbox.innerText = ct;
+//         // console.log(timerbox)
+//         ct--
+//         console.log(ct)
+//     })
+// },100)
 
 // Iteration 6: Write a code to start the game by calling the first zombie
 makezomb()
